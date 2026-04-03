@@ -2,13 +2,15 @@
 \usepackage[english]{babel}
 \usepackage{blindtext}
 \usepackage{geometry} 	% Page Layout
-\usepackage{xcolor}		% Response coloring 
-\usepackage{scrextend}	% Indent text blocks 
+\usepackage{xcolor}		% Response coloring
+\usepackage{scrextend}	% Indent text blocks
 
 
-% Define environments 
+% Define environments
 \newcounter{feedbackcounter}[section]
-\newenvironment{feedback}{\refstepcounter{feedbackcounter}\par\medskip\noindent \textbf{\thefeedbackcounter. Feedback:} \rmfamily}{\medskip}
+\newenvironment{feedback}{%
+	\refstepcounter{feedbackcounter}\par\medskip\noindent
+	\textbf{\thefeedbackcounter. Feedback:}\par\rmfamily}{\medskip}
 \newenvironment{response}{\par\medskip\noindent \begingroup\color{blue}\begin{addmargin}[3em]{0em}\textbf{Response: }\ignorespaces }{\end{addmargin}\endgroup\medskip \ \\}
 
 % Set page layout 
@@ -17,51 +19,85 @@ headsep=1mm, footskip=12mm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Metadata
-\def\doctype{Master's Thesis} % FIXME
-\def\doctitle{Fancy Thesis Title} % FIXME
-\def\supervisor{Prof. Dr. Stephan Krusche} % FIXME
-\def\advisor{Prof. Dr. Stephan Krusche} % FIXME
-\def\author{Name Name} % FIXME
-\def\presentation_date{04.05.22} % FIXME
+\def\doctype{Bachelor's Thesis in Management \& Technology}
+\def\doctitle{Developing a Competency-Mapping Platform for Recommender Benchmarking}
+\def\examiner{Prof.\ Dr.\ J{\"u}rgen Ernstberger}
+\def\supervisorA{Maximilian Anzinger, M.Sc.}
+\def\supervisorB{Prof.\ Dr.\ Stephan Krusche}
+\def\author{Mark Stockhausen}
+\def\presentation_date{05.03.2026}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-% Define title from metadata
-\title{Presentation Feedbacklog \\ \doctype \ \author \ \\ \doctitle}
-
-
 \begin{document}
-	\maketitle
-	\noindent
-	\rule{\linewidth}{.1mm}	
 	\begin{center}
-		\begin{tabular}{ll}
-			Author:            &  \author     \\
-			Supervisor: 	       &  \supervisor \\				
-			Advisor:	           &  \advisor    \\
-			Presentation date: &  \presentation_date
+		{\normalsize\textit{\doctype}}\\[0.8em]
+		{\huge\textbf{Presentation Feedback Log}}\\[1.0em]
+		{\Large\doctitle}
+	\end{center}
+	\noindent\rule{\linewidth}{.3mm}
+	\begin{center}
+		\begin{tabular}{@{\hspace{1em}}ll@{\hspace{1em}}}
+			\textbf{Author}            & \author        \\[0.3em]
+			\textbf{Examiner}          & \examiner      \\[0.3em]
+			\textbf{Supervisors}       & \supervisorA   \\
+			                           & \supervisorB   \\[0.3em]
+			\textbf{Presentation Date} & \presentation_date
 		\end{tabular}
 	\end{center}
-	\noindent
-	\rule{\linewidth}{.1mm}	
+	\noindent\rule{\linewidth}{.3mm}\vspace{0.5em}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	% Start adding your feedback here
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\begin{feedback} % Example Feedback
-		Since the attention span of the audience is rather short, try getting to the problem as fast as possible. Several slides in the presentation display redundant or repetitive information and could be deleted
-	\end{feedback} % Example Rresponse	
+
+	\begin{feedback}
+		The onboarding flow provides no skip option for the practice rounds, preventing more proficient contributors from bypassing them.
+	\end{feedback}
 	\begin{response}
-	        To  get  to  the  problem  earlier  in  the  presentation  as  well  as  to  present  only relevant  information,  some  of  the  slides  are  removed  (Agenda)  and  some  of  them  are  merged (Context, Motivation and Objectives), therefore the “Problem” slide is now at slide 4. 
+		To allow experienced contributors to skip the practice rounds, a skip button was added to the onboarding flow, letting knowledgeable users proceed directly to the mapping session.
 	\end{response}
-	
-	
-	\begin{feedback} % Example Feedback
-		The structure of the presentation is rather unique; it would be great if you could help the audience to follow it easier.
-	\end{feedback}		
-	\begin{response} % Example Rresponse
-		To help the audience to follow the presentation easier, a progress-bar was added at the bottom of the slides to show the milestones of the presentation and highlight the one that indicates the current slide.
+
+	\begin{feedback}
+		The error message shown after selecting a wrong answer during the practice rounds disappeared too quickly to be read properly.
+	\end{feedback}
+	\begin{response}
+		To ensure contributors can read and understand the error, the display duration of the error message was extended so it remains visible long enough.
 	\end{response}
-	
-	
+
+	\begin{feedback}
+		If a user does not accept the informed consent during onboarding, their incomplete account is never cleaned up.
+	\end{feedback}
+	\begin{response}
+		To prevent accumulation of incomplete accounts, a TTL (time-to-live) was added that automatically removes accounts which have not accepted the consent agreement within the configured time window.
+	\end{response}
+
+	\begin{feedback}
+		The architecture diagram is clear, but an animated dataflow showing how data moves through the subsystems would make the overall architecture more tangible for the audience.
+	\end{feedback}
+	\begin{response}
+		The presentation was extended with an animated dataflow that illustrates how data moves through the subsystems, making the architecture easier for the audience to follow.
+	\end{response}
+
+	\begin{feedback}
+		The presentation featured the central login and authentication workflow. While correct, spending significant presentation time on a standard access-control flow adds little value.
+	\end{feedback}
+	\begin{response}
+		The login and authentication workflow was removed from the slides and is only mentioned briefly as a prerequisite step in the live demo. The reclaimed time is used to elaborate further on the top-level architecture and its animated dataflow.
+	\end{response}
+
+	\begin{feedback}
+		The separation between data collection and data interpretation should be made clearer in the presentation. The Memo platform is a data-collection tool. The interpretation of the resulting benchmark dataset is left to downstream researchers.
+	\end{feedback}
+	\begin{response}
+		A clear statement was added to the system overview slide in the presentation to explicitly scope Memo as a data-collection platform. It also clarifies that the interpretation of the collected mappings is left to downstream research.
+	\end{response}
+
+	\begin{feedback}
+		Milestones, streaks, and badges appear best suited to increasing engagement among younger or student contributors rather than among professors. For professors, the engagement concept should extend further on professional value, such as time savings, resource alignment, and transparent recommendations.
+	\end{feedback}
+	\begin{response}
+		The thesis future work section was extended to futher identify the educational benefits for professors, their key motivators, and the relevant literature on this topic as areas of future interest.
+	\end{response}
+
 \end{document}
